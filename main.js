@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu } = require('electron');
+const { app, BrowserWindow, Tray, Menu, Notification } = require('electron');
 const path = require('path');
 const chokidar = require('chokidar');
 const sharp = require('sharp');
@@ -9,7 +9,7 @@ let mainWindow;
 let tray = null;
 
 // Chemin vers le dossier Images
-const imagesDir = path.join(process.env.USERPROFILE, 'Pictures'); // Pour Windows
+const imagesDir = path.join(process.env.USERPROFILE, 'Images'); // Pour Windows
 
 function createWindow() {
   // Créer la fenêtre principale
@@ -50,6 +50,15 @@ function startWatching() {
   });
 }
 
+function showNotification(title, body) {
+  const notification = {
+    title: title,
+    body: body,
+  };
+  
+  new Notification(notification).show();
+}
+
 function convertToJpg(avifPath) {
   const jpgPath = avifPath.replace('.avif', '.jpg');
 
@@ -58,6 +67,7 @@ function convertToJpg(avifPath) {
     .toFile(jpgPath)
     .then(() => {
       console.log(`Converted ${avifPath} to ${jpgPath}`);
+      showNotification('Conversion réussie', `Image convertie avec succès : ${jpgPath}`);
       fs.unlinkSync(avifPath);
     })
     .catch(err => {
