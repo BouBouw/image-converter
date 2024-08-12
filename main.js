@@ -30,7 +30,8 @@ function createTray() {
   // Créer une icône dans la barre de tâches
   tray = new Tray(path.join(__dirname, 'icon.png'));
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Quit', click: () => { app.quit(); } }
+    { label: 'Check new image', click: () => { startWatching(); } },
+    { label: 'Quit', click: () => { app.quit(); } },
   ]);
   tray.setToolTip('Image Converter');
   tray.setContextMenu(contextMenu);
