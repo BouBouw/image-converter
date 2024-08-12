@@ -29,7 +29,7 @@
       "perMachine": true,
       "allowElevation": true,
       "runAfterFinish": true,
-      "createDesktopShortcut": true,
+      "createDesktopShortcut": false,
       "createStartMenuShortcut": true,
       "include": "installer.nsh"
     }
