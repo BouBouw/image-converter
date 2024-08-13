@@ -3,7 +3,7 @@ const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 
-const imagesDir = path.join(process.env.USERPROFILE, 'Images'); // Pour Windows
+const imagesDir = path.join(process.env.USERPROFILE, 'Pictures'); // Pour Windows
 
 const watcher = chokidar.watch(imagesDir, {
     ignored: /^\./, 
@@ -16,19 +16,18 @@ watcher.on('add', filePath => {
     }
 });
 
-function convertToJpg(avifPath) {
+async function convertToJpg(avifPath) {
     const jpgPath = avifPath.replace('.avif', '.jpg');
 
-    sharp(avifPath)
-        .jpeg()
-        .toFile(jpgPath)
-        .then(() => {
-            console.log(`Converted ${avifPath} to ${jpgPath}`);
-            fs.unlinkSync(avifPath);
-        })
-        .catch(err => {
-            console.error(`Failed to convert ${avifPath}:`, err);
-        });
+    try {
+        await sharp(avifPath)
+            .jpeg()
+            .toFile(jpgPath);
+        console.log(`Converti avec succès : ${jpgPath}`);
+        fs.unlinkSync(avifPath);
+    } catch (error) {
+        console.error(`Erreur lors de la conversion de ${avifPath}:`, error);
+    }
 }
 
 console.log(`Watching for .avif files in ${imagesDir}`);
