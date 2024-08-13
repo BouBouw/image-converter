@@ -4,20 +4,17 @@ const chokidar = require('chokidar');
 const sharp = require('sharp');
 const fs = require('fs');
 
-// Variable globale pour la fenêtre principale
 let mainWindow;
 let tray = null;
 
-// Chemin vers le dossier Images
 const imagesDir = path.join(process.env.USERPROFILE, 'Pictures'); // Pour Windows
 
 function createWindow() {
-  // Créer la fenêtre principale
   mainWindow = new BrowserWindow({
     title: "Covertisseur d'image",
     width: 300,
     height: 200,
-    show: false, // Garde la fenêtre cachée
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -28,7 +25,6 @@ function createWindow() {
 }
 
 function createTray() {
-  // Créer une icône dans la barre de tâches
   tray = new Tray(path.join(__dirname, 'src/icon.png'));
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Check new image', click: () => { startWatching(); } },
