@@ -14,6 +14,7 @@ const imagesDir = path.join(process.env.USERPROFILE, 'Pictures'); // Pour Window
 function createWindow() {
   // Créer la fenêtre principale
   mainWindow = new BrowserWindow({
+    title: "Covertisseur d'image",
     width: 300,
     height: 200,
     show: false, // Garde la fenêtre cachée
@@ -23,12 +24,12 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadFile('index.html');
+  mainWindow.loadFile('src/index.html');
 }
 
 function createTray() {
   // Créer une icône dans la barre de tâches
-  tray = new Tray(path.join(__dirname, 'icon.png'));
+  tray = new Tray(path.join(__dirname, 'src/icon.png'));
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Check new image', click: () => { startWatching(); } },
     { label: 'Quit', click: () => { app.quit(); } },
@@ -50,10 +51,11 @@ function startWatching() {
   });
 }
 
-function showNotification(title, body) {
+function showNotification(title, body, path) {
   const notification = {
     title: title,
     body: body,
+    icon: path
   };
   
   new Notification(notification).show();
@@ -67,7 +69,7 @@ function convertToJpg(avifPath) {
     .toFile(jpgPath)
     .then(() => {
       console.log(`Converted ${avifPath} to ${jpgPath}`);
-      showNotification('Conversion réussie', `Image convertie avec succès : ${jpgPath}`);
+      showNotification('Conversion réussie', `Votre image s'est convertie avec succès !`, jpgPath);
       fs.unlinkSync(avifPath);
     })
     .catch(err => {
