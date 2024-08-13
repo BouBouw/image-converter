@@ -9,7 +9,7 @@ let mainWindow;
 let tray = null;
 
 // Chemin vers le dossier Images
-const imagesDir = path.join(process.env.USERPROFILE, 'Images'); // Pour Windows
+const imagesDir = path.join(process.env.USERPROFILE, 'Pictures'); // Pour Windows
 
 function createWindow() {
   // Créer la fenêtre principale
