@@ -3,7 +3,7 @@ const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 
-const imagesDir = path.join(process.env.USERPROFILE, 'Pictures'); // Pour Windows
+const imagesDir = path.join(process.env.USERPROFILE, 'OneDrive/Images'); // Pour Windows
 
 const watcher = chokidar.watch(imagesDir, {
     ignored: /^\./, 
