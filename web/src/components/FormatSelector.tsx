@@ -117,31 +117,52 @@ export function FormatSelector({
         )}
       </div>
 
-      {/* Quality Slider - Conditionnel */}
+      {/* Quality Slider - Conditionnel avec design button-slider */}
       {selectedFormat?.supportsQuality && (
         <div>
-          <div className="flex justify-between items-center mb-3">
+          <div className="flex justify-between items-center mb-4">
             <label className="text-xs font-semibold tracking-widest uppercase text-[#1A1A1A] opacity-50">
-              Qualité
+              Qualité de compression
             </label>
             <span className="text-sm font-bold text-[#801515]">
               {quality}%
             </span>
           </div>
-          <div className="relative">
+
+          {/* Custom Button Slider */}
+          <div className="relative h-12 bg-[#FAFAFA] rounded-lg border-2 border-transparent hover:border-[#E5E5E5] transition-all duration-300">
+            {/* Track de fond */}
+            <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 h-2 bg-[#E5E5E5] rounded-full" />
+
+            {/* Track de progression */}
+            <div
+              className="absolute left-4 top-1/2 -translate-y-1/2 h-2 bg-[#AA3939] rounded-full transition-all duration-150 ease-out"
+              style={{ width: `calc((100% - 32px) * ${quality / 100})` }}
+            />
+
+            {/* Thumb/Button personnalisé */}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-[#801515] rounded-full shadow-lg cursor-pointer flex items-center justify-center text-white text-xs font-bold transition-all duration-200 hover:scale-110 hover:bg-[#AA3939]"
+              style={{ left: `calc(16px + (100% - 32px) * ${quality / 100})` }}
+            >
+              {quality}
+            </div>
+
+            {/* Input invisible */}
             <input
               type="range"
               min="1"
               max="100"
               value={quality}
               onChange={(e) => onQualityChange(parseInt(e.target.value))}
-              className="w-full h-2 bg-[#F5F5F5] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#801515] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
-            {/* Track progress */}
-            <div
-              className="absolute top-0 left-0 h-2 bg-[#AA3939] rounded-full pointer-events-none transition-all duration-150"
-              style={{ width: `${quality}%` }}
-            />
+          </div>
+
+          {/* Labels qualité */}
+          <div className="flex justify-between text-xs text-[#1A1A1A] opacity-30 mt-2 px-4">
+            <span>Bas</span>
+            <span>Élevée</span>
           </div>
         </div>
       )}
