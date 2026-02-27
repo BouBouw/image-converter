@@ -1,4 +1,4 @@
-import { ConversionStatus } from '../types/conversion';
+import type { ConversionStatus } from '../types/conversion';
 import { CheckCircle, XCircle, Loader } from 'lucide-react';
 
 interface ProgressBarProps {

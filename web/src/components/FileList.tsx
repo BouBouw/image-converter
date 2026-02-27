@@ -1,4 +1,4 @@
-import { FileWithMetadata } from '../types/conversion';
+import type { FileWithMetadata } from '../types/conversion';
 import { X } from 'lucide-react';
 
 interface FileListProps {

@@ -1,4 +1,9 @@
-import { FormatOption } from '../types/conversion';
+// Using local type definition to avoid module resolution issues
+interface FormatOption {
+  value: string;
+  label: string;
+  supportsQuality: boolean;
+}
 
 const FORMATS: FormatOption[] = [
   { value: 'png', label: 'PNG', supportsQuality: false },

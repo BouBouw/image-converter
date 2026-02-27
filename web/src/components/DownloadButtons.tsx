@@ -1,10 +1,10 @@
 import { Download } from 'lucide-react';
-import { ConversionStatus } from '../types/conversion';
+import type { ConversionStatus } from '../types/conversion';
 
 interface DownloadButtonsProps {
   conversions: Map<string, ConversionStatus>;
   targetFormat: string;
-  onDownloadFile: (fileId: string) => void;
+  onDownloadFile: (fileId: string, format: string) => void;
   onDownloadAll: () => void;
 }
 
@@ -36,7 +36,7 @@ export function DownloadButtons({
         {completedConversions.map((conv) => (
           <button
             key={conv.fileId}
-            onClick={() => onDownloadFile(conv.fileId)}
+            onClick={() => onDownloadFile(conv.fileId, targetFormat)}
             className="w-full flex items-center justify-between px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <span className="text-sm text-gray-700">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FileWithMetadata, ConversionStatus } from '../types/conversion';
+import type { FileWithMetadata, ConversionStatus } from '../types/conversion';
 import { useConversion } from '../hooks/useConversion';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { FormatSelector } from './FormatSelector';
