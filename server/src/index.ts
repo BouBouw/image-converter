@@ -13,25 +13,7 @@ const io = new SocketIOServer(httpServer, {
 app.use(cors());
 app.use(express.json());
 
-// Test route
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'API is working' });
-});
-
 app.use('/api', convertRoutes);
-
-// Log all routes
-app._router.stack.forEach((middleware: any) => {
-  if (middleware.route) {
-    console.log('Registered route:', middleware.route.path);
-  } else if (middleware.name === 'router') {
-    middleware.handle.stack.forEach((handler: any) => {
-      if (handler.route) {
-        console.log('Registered route:', handler.route.path);
-      }
-    });
-  }
-});
 
 const PORT = process.env.PORT || 3001;
 
