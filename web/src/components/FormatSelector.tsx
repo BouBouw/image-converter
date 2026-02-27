@@ -32,29 +32,29 @@ export function FormatSelector({
   const selectedFormat = FORMATS.find(f => f.value === format);
 
   return (
-    <div className="space-y-8">
-      {/* Format Buttons - Toute la largeur */}
+    <div className="space-y-6">
+      {/* Format Buttons - Stack vertical, aligné gauche */}
       <div>
-        <label className="block text-xs font-semibold tracking-widest uppercase text-[#1A1A1A] opacity-50 mb-4">
-          Format de sortie
+        <label className="block text-xs font-semibold tracking-widest uppercase text-[#1A1A1A] opacity-50 mb-3">
+          Format
         </label>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div className="space-y-2">
           {FORMATS.map((f) => (
             <button
               key={f.value}
               onClick={() => onFormatChange(f.value)}
               className={`
-                relative px-4 py-3 text-sm font-medium transition-all duration-300
+                w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 relative
                 ${format === f.value
-                  ? 'bg-[#801515] text-white shadow-lg'
-                  : 'bg-[#FAFAFA] text-[#0A0A0A] hover:bg-[#F5F5F5]'
+                  ? 'bg-[#801515] text-white shadow-md'
+                  : 'bg-[#FAFAFA] text-[#0A0A0A] hover:bg-[#F5F5F5] hover:pl-6'
                 }
               `}
             >
               <span className="relative z-10">{f.label}</span>
               {/* Indicator pour format sélectionné */}
               {format === f.value && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#AA3939]" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#AA3939]" />
               )}
             </button>
           ))}
@@ -64,9 +64,9 @@ export function FormatSelector({
       {/* Quality Slider - Conditionnel */}
       {selectedFormat?.supportsQuality && (
         <div>
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center mb-3">
             <label className="text-xs font-semibold tracking-widest uppercase text-[#1A1A1A] opacity-50">
-              Qualité de compression
+              Qualité
             </label>
             <span className="text-sm font-bold text-[#801515]">
               {quality}%
@@ -79,18 +79,13 @@ export function FormatSelector({
               max="100"
               value={quality}
               onChange={(e) => onQualityChange(parseInt(e.target.value))}
-              className="w-full h-2 bg-[#F5F5F5] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#801515] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110 [&::-webkit-slider-thumb]:shadow-lg"
+              className="w-full h-2 bg-[#F5F5F5] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#801515] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
             />
             {/* Track progress */}
             <div
               className="absolute top-0 left-0 h-2 bg-[#AA3939] rounded-full pointer-events-none transition-all duration-150"
               style={{ width: `${quality}%` }}
             />
-          </div>
-          {/* Labels qualité */}
-          <div className="flex justify-between text-xs text-[#1A1A1A] opacity-30 mt-2">
-            <span>Bas</span>
-            <span>Élevée</span>
           </div>
         </div>
       )}
