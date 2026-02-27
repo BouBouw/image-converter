@@ -45,34 +45,79 @@ export function DropZone({ onFilesSelected }: DropZoneProps) {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       className={`
-        border-2 border-dashed rounded-xl p-12 text-center transition-colors
+        relative group cursor-pointer overflow-hidden transition-all duration-300
         ${isDragging
-          ? 'border-indigo-500 bg-indigo-50'
-          : 'border-gray-300 hover:border-gray-400'
+          ? 'scale-[1.02]'
+          : 'hover:scale-[1.01]'
         }
       `}
     >
-      <Upload className="mx-auto h-16 w-16 text-gray-400 mb-4" />
-      <p className="text-lg font-medium text-gray-700 mb-2">
-        Glissez vos images ici
-      </p>
-      <p className="text-sm text-gray-500 mb-4">
-        ou cliquez pour parcourir
-      </p>
-      <input
-        type="file"
-        multiple
-        accept="image/*"
-        onChange={handleFileInput}
-        className="hidden"
-        id="file-input"
-      />
-      <label
-        htmlFor="file-input"
-        className="inline-block px-6 py-2 bg-indigo-600 text-white rounded-lg cursor-pointer hover:bg-indigo-700 transition-colors"
-      >
-        Parcourir
-      </label>
+      {/* Background avec bordure minimaliste */}
+      <div className={`
+        border-2 transition-all duration-300
+        ${isDragging
+          ? 'border-[#AA3939] bg-[#801515]/5'
+          : 'border-[#F5F5F5] group-hover:border-[#E5E5E5]'
+        }
+      `}>
+        <div className="p-16 lg:p-24 text-center">
+          {/* Icône animée */}
+          <div className={`
+            inline-flex items-center justify-center w-20 h-20 rounded-full
+            transition-all duration-300 mb-8
+            ${isDragging
+              ? 'bg-[#AA3939] scale-110'
+              : 'bg-[#FAFAFA] group-hover:bg-[#F5F5F5]'
+            }
+          `}>
+            <Upload className={`
+              w-8 h-8 transition-colors duration-300
+              ${isDragging ? 'text-white' : 'text-[#801515]'}
+            `} />
+          </div>
+
+          {/* Titre et sous-titre */}
+          <h3 className={`
+            text-2xl font-semibold mb-3 transition-colors duration-300 font-serif
+            ${isDragging ? 'text-[#801515]' : 'text-[#0A0A0A]'}
+          `}>
+            {isDragging ? 'Relâchez pour ajouter' : 'Glissez vos images ici'}
+          </h3>
+          <p className="text-[#1A1A1A] opacity-50 mb-8">
+            ou cliquez pour parcourir vos fichiers
+          </p>
+
+          {/* Bouton */}
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleFileInput}
+            className="hidden"
+            id="file-input"
+          />
+          <label
+            htmlFor="file-input"
+            className={`
+              inline-flex items-center gap-3 px-8 py-4
+              font-medium text-sm tracking-wide uppercase
+              transition-all duration-300 cursor-pointer
+              ${isDragging
+                ? 'bg-[#801515] text-white'
+                : 'bg-[#0A0A0A] text-white hover:bg-[#801515]'
+              }
+            `}
+          >
+            <span>Parcourir</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </label>
+        </div>
+      </div>
+
+      {/* Accent décoratif */}
+      <div className="absolute top-0 left-0 w-1 h-full bg-[#AA3939] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
     </div>
   );
 }

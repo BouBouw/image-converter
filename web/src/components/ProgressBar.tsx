@@ -11,18 +11,18 @@ export function ProgressBar({ conversions, globalProgress }: ProgressBarProps) {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-500';
-      case 'error': return 'bg-red-500';
-      case 'converting': return 'bg-yellow-500';
-      default: return 'bg-gray-300';
+      case 'completed': return '#801515';
+      case 'error': return '#DC2626';
+      case 'converting': return '#AA3939';
+      default: return '#E5E5E5';
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'error': return <XCircle className="w-5 h-5 text-red-500" />;
-      case 'converting': return <Loader className="w-5 h-5 text-yellow-500 animate-spin" />;
+      case 'completed': return <CheckCircle className="w-5 h-5 text-[#801515]" />;
+      case 'error': return <XCircle className="w-5 h-5 text-[#DC2626]" />;
+      case 'converting': return <Loader className="w-5 h-5 text-[#AA3939] animate-spin" />;
       default: return null;
     }
   };
@@ -32,38 +32,49 @@ export function ProgressBar({ conversions, globalProgress }: ProgressBarProps) {
     : 0;
 
   return (
-    <div className="mt-6 space-y-4">
-      {/* Global Progress */}
+    <div className="space-y-6">
+      {/* Global Progress - Design éditorial */}
       <div>
-        <div className="flex justify-between text-sm text-gray-600 mb-2">
-          <span>Progression globale</span>
-          <span>
-            {globalProgress.completed}/{globalProgress.total} (
-            {Math.round(globalPercentage)}%)
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-xs font-semibold tracking-widest uppercase text-[#1A1A1A] opacity-50">
+            Progression
+          </span>
+          <span className="text-sm font-bold text-[#801515]">
+            {globalProgress.completed}/{globalProgress.total}
           </span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-3">
+        <div className="relative h-2 bg-[#F5F5F5] rounded-full overflow-hidden">
           <div
-            className="bg-indigo-600 h-3 rounded-full transition-all duration-300"
+            className="absolute inset-y-0 left-0 bg-[#801515] transition-all duration-500 ease-out"
             style={{ width: `${globalPercentage}%` }}
           />
         </div>
+        <div className="text-right mt-1">
+          <span className="text-xs font-semibold text-[#801515]">
+            {Math.round(globalPercentage)}%
+          </span>
+        </div>
       </div>
 
-      {/* Individual Progress */}
-      <div className="space-y-2">
+      {/* Individual Progress - List minimaliste */}
+      <div className="space-y-3">
         {Array.from(conversions.values()).map((conv) => (
-          <div key={conv.fileId} className="flex items-center gap-3">
-            {getStatusIcon(conv.status)}
+          <div key={conv.fileId} className="flex items-center gap-3 py-2">
+            <div className="w-5 flex justify-center">
+              {getStatusIcon(conv.status)}
+            </div>
             <div className="flex-1">
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="relative h-1.5 bg-[#F5F5F5] rounded-full overflow-hidden">
                 <div
-                  className={`${getStatusColor(conv.status)} h-2 rounded-full transition-all duration-300`}
-                  style={{ width: `${conv.progress}%` }}
+                  className="absolute inset-y-0 left-0 transition-all duration-300 ease-out"
+                  style={{
+                    width: `${conv.progress}%`,
+                    backgroundColor: getStatusColor(conv.status)
+                  }}
                 />
               </div>
             </div>
-            <span className="text-xs text-gray-600 w-12 text-right">
+            <span className="text-xs font-semibold w-10 text-right text-[#1A1A1A] opacity-60">
               {Math.round(conv.progress)}%
             </span>
           </div>
