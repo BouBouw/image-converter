@@ -39,7 +39,7 @@ export function FileList({ files, onRemoveFile }: FileListProps) {
             <img
               src={file.preview}
               alt={file.originalName}
-              className="w-20 h-20 object-cover border-2 border-[#E5E5E5]"
+              className="w-20 h-20 object-cover"
             />
 
             {/* Info fichier */}
