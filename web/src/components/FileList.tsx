@@ -35,9 +35,9 @@ export function FileList({ files, onRemoveFile }: FileListProps) {
             className="group flex items-center gap-4 p-4 bg-white border border-[#F5F5F5] hover:border-[#E5E5E5] transition-all duration-300 animate-slide-in-left"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            {/* Preview avec bordure accentuée */}
+            {/* Preview avec bordure neutre */}
             <div className="relative">
-              <div className="absolute inset-0 bg-[#AA3939] transform translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-[#E5E5E5] transform translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300" />
               <img
                 src={file.preview}
                 alt={file.originalName}
