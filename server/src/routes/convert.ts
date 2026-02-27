@@ -119,13 +119,12 @@ router.get('/download/:id', async (req, res) => {
     const fileStream = createReadStream(filePath);
     fileStream.pipe(res);
 
-    // Delete after download
+    // Delete converted file after download
     fileStream.on('end', async () => {
       try {
         await fs.unlink(filePath);
-        await fs.unlink(filePath.replace('converted', 'uploads'));
       } catch (err) {
-        console.error('Error deleting file:', err);
+        console.error('Error deleting converted file:', err);
       }
     });
   } catch (error) {
